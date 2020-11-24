@@ -3,13 +3,13 @@ import React, { useState, useRef } from "react";
 import { StyleSheet,  Text, View, Dimensions, TextInput } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 
-import { HomeButton } from "./HomeButton";
-import { useObstacles } from "./hooks"
+import { HomeButton } from "../Assets/HomeButton";
+import { useObstacles } from "../Hooks/hooks"
 
 
 
 
-export function Obstacles({ navigation }) {
+export function addObstacles({ navigation }) {
     const {obstacles, addObstacles} = useObstacles();
 
     const [inputValue, setValue] = useState("");
@@ -47,8 +47,14 @@ export function Obstacles({ navigation }) {
                         {label:'Other', value: 'Other'},
                     ]}
                     defaultValue = "Entertainment"
-                    
+                    style={{backgroundColor:"#77a3bd"}}
                     containerStyle={{height: 40}}
+                    dropDownStyle={{backgroundColor: "#77a3bd", zIndex: 500}}
+                    labelStyle={{fontSize: 14,
+                        textAlign: 'center',
+                        color: '#1a2c2e',
+                        backgroundColor: "#77a3bd"}}
+                    arrowStyle={{borderLeftWidth: 2, borderLeftColor: "#151e1f", paddingLeft: 10, height: 25, justifyContent: "center"}}
                     /* adds the dropdown data to object */
                     onChangeItem={item => obstacle.area = item.value}
 
@@ -69,6 +75,7 @@ export function Obstacles({ navigation }) {
                             {label:'Ethics', value: 'Ethics'}
                         ]}
                         defaultValue = "Forward Looking"
+                        dropDownStyle={{backgroundColor: "#77a3bd", zIndex: 200}}
                         containerStyle={{width:Dimensions.get('screen').width / 2.2, height:40 }}
                         zIndex={1}
                         /* adds dropdown data to object */
@@ -91,6 +98,7 @@ export function Obstacles({ navigation }) {
                             {label:'Other', value: 'Other'},
                         ]}
                         defaultValue = "Entertainment"
+                        dropDownStyle={{backgroundColor: "#77a3bd", zIndex: 200}}
                         containerStyle={{width:Dimensions.get('screen').width / 2.2, height: 40}}
                         zIndex={1}
                         /* adds dropdown data to object */
@@ -124,7 +132,7 @@ export function Obstacles({ navigation }) {
             <HomeButton 
                 title="Next" 
                 style={styles.submit} 
-                onPress={() => navigation.navigate('ObstacleList', {screen: 'ObstacleList'})}
+                onPress={() => navigation.navigate('Obstacles', {screen: 'obstacleList'})}
             />      
 
         </View>

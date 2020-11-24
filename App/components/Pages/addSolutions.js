@@ -1,18 +1,24 @@
 import React, { useState, useRef } from "react";
 import { StyleSheet,  Text, View, Dimensions, TextInput } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { generate } from "shortid";
+import { HomeButton } from "../Assets/HomeButton";
+import { useObstacles, useSolutions } from "../Hooks/hooks";
 
-export function Solutions({ route }) {
+export function addSolutions({ route, navigation }) {
     const { input: input, area: area, emotion: emotion, specific: specific, id: id } = route.params;
 
     var solution = {
-        area: "forward",
-        emotion: "forward"
+        id: generate(),
+        area: "Entertainment",
+        emotion: "forward",
+        input: ""
     }
 
     const [inputValue, setValue] = useState("");
     const txtInput = useRef();
     console.log(input)
+    const {solutions, addSolutions} = useSolutions();
     return (
         <>
             <View style = {styles.container}>
@@ -29,19 +35,19 @@ export function Solutions({ route }) {
                         <View style={styles.dropDown}>
                             <DropDownPicker 
                             items={[
-                                {label:'Entertainment', value: 'ent'},
-                                {label:'Family', value: 'fam'},
-                                {label:'Finance', value: 'fin'},
-                                {label:'Health', value: 'hea'},
-                                {label:'Home', value: 'hom'},
-                                {label:'Personal', value: 'per'},
-                                {label:'Relationship', value: 'rel'},
-                                {label:'Social', value: 'soc'},
-                                {label:'Study', value: 'stu'},
-                                {label:'Work', value: 'wor'},
-                                {label:'Other', value: 'oth'},
+                                {label:'Entertainment', value: 'Entertainment'},
+                                {label:'Family', value: 'Family'},
+                                {label:'Finance', value: 'Finance'},
+                                {label:'Health', value: 'Health'},
+                                {label:'Home', value: 'Home'},
+                                {label:'Personal', value: 'Personal'},
+                                {label:'Relationship', value: 'Relationship'},
+                                {label:'Social', value: 'Social'},
+                                {label:'Study', value: 'Study'},
+                                {label:'Work', value: 'Work'},
+                                {label:'Other', value: 'Other'},
                             ]}
-                            defaultValue = "ent"
+                            defaultValue = "Entertainment"
                             
                             containerStyle={{height: 40}}
                             onChangeItem={item => solution.area = item.value}
@@ -58,9 +64,9 @@ export function Solutions({ route }) {
                                     {label:'Ethics', value: 'ethics'}
                                 ]}
                                 defaultValue = "forward"
-                                containerStyle={{width:Dimensions.get('screen').width / 2.2, height:40 }}
                                 zIndex={1}
-                                onChangeItem={item=> obstacle.emotion = item.value}
+                                containerStyle={{height: 40}}
+                                onChangeItem={item=> solution.emotion = item.value}
                             />
                         </View>
                     </View>
@@ -71,9 +77,17 @@ export function Solutions({ route }) {
                             value={inputValue}
                             onChangeText={setValue}
                             autoCapitalize="none"
-                            placeHolder="what is the obstacle?"
+                            placeHolder="What is the solution?"
                         />
                     </View>
+                    <HomeButton title="Submit" onPress={() => {
+                        solution.input = inputValue;
+                        addSolutions(solution.id, solution.area, solution.emotion, solution.input);
+                        console.log(solution);
+                    }}/>
+                    <HomeButton title="Next" onPress={() => {navigation.navigate("Solutions", {screen: "solutionsList"})
+                        
+                    }}/>
                 </View>
             </View> 
         </>

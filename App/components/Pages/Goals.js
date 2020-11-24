@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, FlatList, TouchableHighlight, Text, View } from "react-native";
-import { HomeButton } from "./HomeButton"
+import { HomeButton } from "../Assets/HomeButton"
 
-export function Finished() {
+export function Goals() {
     return (
         <>
             <HomeButton title="Identify Obstacle" />
